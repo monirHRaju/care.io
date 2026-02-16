@@ -1,11 +1,14 @@
 import Container from "@/components/shared/Container";
+import HeroSlider from "@/components/shared/home/HeroSlider";
+import AvailableCaregivers from "@/components/shared/home/AvailableCaregivers";
 
 
 export default function Home() {
   return (
     <div className="py-7">
+      <HeroSlider />
       <Container>
-         <h1 className="text-3xl font-bold">Welcome to Care.IO Homepage</h1>
+         <AvailableCaregivers />
       </Container>
     </div>
   );
