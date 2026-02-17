@@ -5,8 +5,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, Loader2 } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
+  const {googleLogin} = useAuth()
+
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -54,7 +57,14 @@ export default function LoginPage() {
   const handleGoogleLogin = () => {
     // Implement Firebase Google Auth here
     // Example: signInWithPopup(auth, googleProvider);
-    alert("Google login triggered (connect Firebase in production)");
+    googleLogin()
+    .then(() => {
+      setSuccess(true);
+    })
+    .catch((err) => {
+      setError("Google login failed. Please try again.");
+    });
+
   };
 
   return (

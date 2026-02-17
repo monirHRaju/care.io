@@ -4,9 +4,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Search, User, Menu, X } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -26,15 +29,21 @@ export default function Navbar() {
           <div className="hidden md:flex md:items-center md:space-x-8">
             {/* Nav Links */}
             <div className="flex space-x-8">
-              {["Home", "Services", "My Bookings", "About", "Contact"].map((item) => (
-                <Link
-                  key={item}
-                  href={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`}
-                  className="text-[#333333] hover:text-[#FF7A59] font-medium transition-colors duration-200"
-                >
-                  {item}
-                </Link>
-              ))}
+              {["Home", "Services", "About", "Contact"].map(
+                (item) => (
+                  <Link
+                    key={item}
+                    href={
+                      item === "Home"
+                        ? "/"
+                        : `/${item.toLowerCase().replace(" ", "-")}`
+                    }
+                    className="text-[#333333] hover:text-[#FF7A59] font-medium transition-colors duration-200"
+                  >
+                    {item}
+                  </Link>
+                ),
+              )}
             </div>
 
             {/* Search Bar */}
@@ -48,9 +57,39 @@ export default function Navbar() {
             </div>
 
             {/* Profile Icon */}
-            <Link href="/profile" className="text-[#333333] hover:text-[#FF7A59] transition">
-              <User className="h-6 w-6" />
-            </Link>
+            {/* Profile Icon */}
+            {/* Auth Section */}
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Link href="/profile" className="flex items-center space-x-2">
+                  {user.photoURL ? (
+                    <Image
+                      src={user.photoURL}
+                      alt="profile"
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <User className="h-6 w-6" />
+                  )}
+                </Link>
+
+                <button
+                  onClick={logout}
+                  className="text-sm font-medium text-[#333333] hover:text-[#FF7A59]"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link
+                href={'/login'}
+                className="bg-[#FF7A59] text-white px-4 py-2 rounded-full text-sm font-medium hover:opacity-90 transition"
+              >
+                Login / Register
+              </Link>
+            )}
           </div>
 
           {/* Mobile Hamburger Button */}
@@ -60,7 +99,11 @@ export default function Navbar() {
               className="inline-flex items-center justify-center rounded-md p-2 text-[#333333] hover:text-[#FF7A59] focus:outline-none"
               aria-label="Toggle menu"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -73,7 +116,11 @@ export default function Navbar() {
             {["Home", "Services", "My Bookings", "About"].map((item) => (
               <Link
                 key={item}
-                href={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`}
+                href={
+                  item === "Home"
+                    ? "/"
+                    : `/${item.toLowerCase().replace(" ", "-")}`
+                }
                 className="block text-[#333333] hover:text-[#FF7A59] font-medium py-2 transition"
                 onClick={() => setIsOpen(false)}
               >
@@ -92,14 +139,38 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Profile Link */}
-            <Link
-              href="/profile"
-              className="flex items-center text-[#333333] hover:text-[#FF7A59] font-medium py-2 transition"
-              onClick={() => setIsOpen(false)}
-            >
-              <User className="mr-3 h-5 w-5" />
-              Profile / Login
-            </Link>
+            {/* Auth Section */}
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Link href="/profile" className="flex items-center space-x-2">
+                  {user.photoURL ? (
+                    <Image
+                      src={user.photoURL}
+                      alt="profile"
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <User className="h-6 w-6" />
+                  )}
+                </Link>
+
+                <button
+                  onClick={logout}
+                  className="text-sm font-medium text-[#333333] hover:text-[#FF7A59]"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link
+                href={'/login'}
+                className="bg-[#FF7A59] text-white px-4 py-2 rounded-full text-sm font-medium hover:opacity-90 transition"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       )}
