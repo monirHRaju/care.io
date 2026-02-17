@@ -42,8 +42,26 @@ export default function Navbar() {
                   >
                     {item}
                   </Link>
+                  
                 ),
               )}
+              {user && (
+                <>
+                  <Link
+                  href="/my-bookings"
+                  className="text-[#333333] hover:text-[#FF7A59] font-medium transition-colors duration-200"
+                >
+                  My Bookings
+                </Link>
+                
+                <Link
+                  href="/dashboard"
+                  className="text-[#333333] hover:text-[#FF7A59] font-medium transition-colors duration-200"
+                >
+                  Dashboard
+                </Link>
+                </>
+            )}
             </div>
 
             {/* Search Bar */}
