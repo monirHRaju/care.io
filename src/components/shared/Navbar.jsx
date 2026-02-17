@@ -26,7 +26,7 @@ export default function Navbar() {
           <div className="hidden md:flex md:items-center md:space-x-8">
             {/* Nav Links */}
             <div className="flex space-x-8">
-              {["Home", "Services", "My Bookings", "About"].map((item) => (
+              {["Home", "Services", "My Bookings", "About", "Contact"].map((item) => (
                 <Link
                   key={item}
                   href={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`}
