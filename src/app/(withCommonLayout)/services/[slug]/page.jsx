@@ -158,9 +158,7 @@ const ServiceDetails = async ({ params }) => {
                   </div>
                 </div>
                 <div className="card-actions mt-8">
-                  <Link href="/booking" className="btn btn-primary w-full btn-lg rounded-full">
-                    Book Now
-                  </Link>
+                  <BookingBtn service={service} />
                 </div>
               </div>
             </div>

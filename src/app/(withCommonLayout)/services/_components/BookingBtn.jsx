@@ -3,9 +3,9 @@ import { BookingContext } from "@/context/booking.context";
 import React, { use, useContext } from "react";
 
 const BookingBtn = ({ service }) => {
-  const { bookings, addBooking, removeBooking } = useContext(BookingContext);
-  console.log("bookings in btn:", bookings);
+  const { bookings, addBooking, removeBooking } = use(BookingContext);
   const isAlreadyBooking = bookings?.find((b) => b?._id === service?._id);
+  console.log("bookings in btn:", bookings, isAlreadyBooking);
 
   return (
     <button
