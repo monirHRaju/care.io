@@ -3,7 +3,13 @@
 import Link from "next/link";
 import { Heart, ShieldCheck, Star, PhoneCall } from "lucide-react"; // npm install lucide-react if not already
 
+export const metadata = {
+    title: "About Us",
+    description: "Learn more about Care.IO and our mission to provide trusted caregiving services.",
+  };
+    
 export default function AboutPage() {
+  
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}

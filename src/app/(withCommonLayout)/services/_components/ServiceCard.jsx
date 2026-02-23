@@ -22,7 +22,7 @@ export default function ServiceCard({ service }) {
 
   return (
     <div className={`
-      card bg-base-100 shadow-xl overflow-hidden transition-all duration-300
+      card shadow-xl overflow-hidden transition-all duration-300
       hover:shadow-2xl hover:-translate-y-2 group
       ${isFeatured ? 'border-2 border-primary' : ''}
     `}>
@@ -87,7 +87,7 @@ export default function ServiceCard({ service }) {
             href={`/services/${service._id}`}
             className="btn btn-primary btn-md rounded-full px-8"
           >
-            Book Now
+            Service Details
           </Link>
         </div>
       </div>

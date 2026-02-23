@@ -14,14 +14,14 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white shadow-sm border-b border-gray-100">
+    <nav className="sticky top-0 z-50 w-full shadow-sm border-b border-[#FF7A59] bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="text-2xl font-bold tracking-tight">
               <span className="text-[#FF7A59]">Care.</span>
-              <span className="text-[#333333]">IO</span>
+              <span className="">IO</span>
             </Link>
           </div>
 
@@ -38,7 +38,7 @@ export default function Navbar() {
                         ? "/"
                         : `/${item.toLowerCase().replace(" ", "-")}`
                     }
-                    className="text-[#333333] hover:text-[#FF7A59] font-medium transition-colors duration-200"
+                    className="hover:text-[#FF7A59] font-medium transition-colors duration-200"
                   >
                     {item}
                   </Link>
@@ -49,14 +49,14 @@ export default function Navbar() {
                 <>
                   <Link
                   href="/my-bookings"
-                  className="text-[#333333] hover:text-[#FF7A59] font-medium transition-colors duration-200"
+                  className="hover:text-[#FF7A59] font-medium transition-colors duration-200"
                 >
                   My Bookings
                 </Link>
                 
                 <Link
                   href="/dashboard"
-                  className="text-[#333333] hover:text-[#FF7A59] font-medium transition-colors duration-200"
+                  className=" hover:text-[#FF7A59] font-medium transition-colors duration-200"
                 >
                   Dashboard
                 </Link>
@@ -95,7 +95,7 @@ export default function Navbar() {
 
                 <button
                   onClick={logout}
-                  className="text-sm font-medium text-[#333333] hover:text-[#FF7A59]"
+                  className="text-sm font-medium  hover:text-[#FF7A59]"
                 >
                   Logout
                 </button>

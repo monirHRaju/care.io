@@ -11,10 +11,8 @@ export default function Home() {
   return (
     <div className="py-7">
       <HeroSlider />
-      <Container>
-         <AvailableCaregivers />
-         <AboutSectionCompact/>
-      </Container>
+      <AvailableCaregivers />
+      <AboutSectionCompact/>
       <OurServices />
       <Feedback />
       <GetStartedSection/>

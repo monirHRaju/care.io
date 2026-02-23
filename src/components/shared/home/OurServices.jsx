@@ -27,14 +27,14 @@ const services = [
 
 export default function OurServices() {
   return (
-    <section className="py-16 md:py-20 bg-gray-50">
+    <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#333333] mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold  mb-4">
             Our Services
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
             Experienced caregivers dedicated to providing trusted, compassionate care for your loved ones — whether it's childcare, elderly support, or medical assistance.
           </p>
         </div>
@@ -45,7 +45,7 @@ export default function OurServices() {
             <div
               key={index}
               className="
-                bg-white rounded-2xl p-6 lg:p-8 
+                rounded-2xl p-6 lg:p-8 
                 shadow-md hover:shadow-xl transition-all duration-300 
                 border border-gray-100
                 flex flex-col items-center text-center
@@ -58,7 +58,7 @@ export default function OurServices() {
               </div>
 
               {/* Title */}
-              <h3 className="text-2xl lg:text-3xl font-semibold text-[#333333] mb-4">
+              <h3 className="text-2xl lg:text-3xl font-semibold  mb-4">
                 {service.title}
               </h3>
 

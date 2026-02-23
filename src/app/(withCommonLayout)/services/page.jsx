@@ -20,12 +20,18 @@ const getAllServices = async (searchParams) => {
   const data = await res.json();
   return data;
 };
+export const metadata = {
+    title: "Services",
+    description: "Explore our wide range of car washing services, tailored to meet all your vehicle care needs. From basic washes to premium detailing, find the perfect service for your car today!",
+  };
 
 export default async function Services({ searchParams }) {
   const sParams = await searchParams;
   const servicesList = await getAllServices(sParams);
 
   const hasResults = servicesList?.meta?.total > 0;
+
+  
 
   return (
     <div className="py-8 md:py-12 bg-base-200/30 min-h-screen">

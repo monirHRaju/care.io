@@ -42,7 +42,7 @@ export default function HeroSlider() {
   const nextRef = useRef(null);
 
   return (
-    <div className="relative w-full h-[80vh] min-h-[500px] overflow-hidden">
+    <div className="relative w-full h-[80vh] min-h-125 overflow-hidden">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         spaceBetween={0}

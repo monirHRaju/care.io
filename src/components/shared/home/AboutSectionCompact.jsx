@@ -1,23 +1,23 @@
 // components/AboutSection.jsx
 export default function AboutSection() {
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-16 md:py-24 bg-white dark:bg-gray-800">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           
           {/* Left: Text Content */}
           <div className="space-y-6 lg:space-y-8">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#333333] leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
               About Care.IO
             </h2>
 
-            <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
               We believe every family deserves access to trusted, compassionate care. 
               Care.IO connects you with verified caregivers who share our commitment 
               to putting families first.
             </p>
 
-            <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
               Our platform makes it easy to find the perfect caregiver for your loved 
               ones—whether you need help with childcare, elderly support, or 
               specialized medical assistance.

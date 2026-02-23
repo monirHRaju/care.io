@@ -9,7 +9,10 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "Care.IO",
+  title: {
+    default: "Care.IO",
+    template: "%s | Care.IO"
+  },
   description: "clean your car easily",
 };
 

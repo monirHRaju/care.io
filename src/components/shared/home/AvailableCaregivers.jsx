@@ -1,5 +1,7 @@
 // components/AvailableCaregivers.jsx
+import CaregiverCard from "@/app/(withCommonLayout)/services/_components/CaregiverCard";
 import Link from "next/link";
+import Container from "../Container";
 
 // Sample data (you'll replace this with real data from Firebase later)
 const caregivers = [
@@ -79,14 +81,15 @@ const caregivers = [
 
 export default function AvailableCaregivers() {
   return (
-    <section className="py-12 bg-gray-50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="py-12 bg-gray-50 dark:bg-gray-900 ">
+      <Container>
+        <div className="sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-8 text-center md:text-left">
-          <h2 className="text-3xl font-bold text-[#333333] mb-2">
+          <h2 className="text-3xl font-bold mb-2">
             Available Caregivers
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-400">
             8 nearby caregivers ready to help your family
           </p>
         </div>
@@ -117,63 +120,12 @@ export default function AvailableCaregivers() {
 
         {/* Caregiver Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {caregivers.map((caregiver) => (
-            <div
-              key={caregiver.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100"
-            >
-              {/* Image */}
-              <div className="aspect-[4/3] relative">
-                <img
-                  src={caregiver.image}
-                  alt={caregiver.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="p-5">
-                <h3 className="text-xl font-semibold text-[#333333] mb-1">
-                  {caregiver.name}
-                </h3>
-
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center">
-                    <span className="text-[#34C759] text-xl">★</span>
-                    <span className="ml-1 font-medium text-[#333333]">
-                      {caregiver.rating}
-                    </span>
-                    <span className="ml-1 text-sm text-gray-500">
-                      ({caregiver.reviews})
-                    </span>
-                  </div>
-                  <span className="text-[#FF7A59] font-bold text-lg">
-                    ${caregiver.rate}/hr
-                  </span>
-                </div>
-
-                <p className="text-sm text-gray-600 mb-4 flex items-center">
-                  <svg
-                    className="w-4 h-4 mr-1 text-gray-500"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M10 2a6 6 0 00-6 6c0 4.418 6 10 6 10s6-5.582 6-10a6 6 0 00-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z" />
-                  </svg>
-                  {caregiver.distance}
-                </p>
-
-                <Link
-                  href={`/caregivers/${caregiver.id}`}
-                  className="block w-full bg-[#FF7A59] hover:bg-[#e66a4d] text-white font-semibold text-center py-3 rounded-full transition transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#FF7A59]/40"
-                >
-                  Book Now
-                </Link>
-              </div>
-            </div>
+          {caregivers.map((caregiver, index) => (
+            <CaregiverCard key={index} caregiver={caregiver} />
           ))}
         </div>
       </div>
+      </Container>
     </section>
   );
 }

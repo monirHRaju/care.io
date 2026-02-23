@@ -7,6 +7,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import Image from "next/image";
 
 // Optional: if you want navigation arrows later
 // import "swiper/css/navigation";
@@ -54,15 +55,15 @@ const testimonials = [
 
 export default function Feedback() {
   return (
-    <section className="py-16 md:py-20 bg-white">
+    <section className="py-16 md:py-20 bg-white dark:bg-gray-800">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#333333] mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold  mb-4">
             What Families Say
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Real stories from families who trust Care.IO for their loved ones' care.
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+            Real stories from families who trust Care.IO for their loved ones care.
           </p>
         </div>
 
@@ -87,13 +88,13 @@ export default function Feedback() {
               "bg-gray-300 w-2.5 h-2.5 mx-1.5 rounded-full transition-all cursor-pointer",
           }}
           loop={true}
-          className="!pb-12 md:!pb-16"
+          className="pb-12 md:pb-16"
         >
           {testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
               <div
                 className="
-                  bg-white rounded-2xl p-6 lg:p-8 
+                  bg-white dark:bg-gray-900 rounded-2xl p-6 lg:p-8 
                   shadow-lg border border-gray-100
                   flex flex-col h-full
                   transition-transform duration-300 hover:shadow-xl
@@ -101,13 +102,15 @@ export default function Feedback() {
               >
                 {/* Avatar & Info */}
                 <div className="flex items-center gap-4 mb-5">
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
                     src={testimonial.avatar}
                     alt={testimonial.name}
                     className="w-14 h-14 lg:w-16 lg:h-16 rounded-full object-cover border-2 border-[#FF7A59]/20"
                   />
                   <div>
-                    <h4 className="font-semibold text-[#333333] text-lg lg:text-xl">
+                    <h4 className="font-semibold  text-lg lg:text-xl">
                       {testimonial.name}
                     </h4>
                     <p className="text-sm lg:text-base text-gray-500">
@@ -131,8 +134,8 @@ export default function Feedback() {
                 </div>
 
                 {/* Quote */}
-                <blockquote className="text-gray-700 text-base lg:text-lg leading-relaxed italic flex-grow">
-                  "{testimonial.quote}"
+                <blockquote className="text-gray-700 text-base lg:text-lg leading-relaxed italic">
+                  {testimonial.quote}
                 </blockquote>
               </div>
             </SwiperSlide>
