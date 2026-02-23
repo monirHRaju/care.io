@@ -12,7 +12,7 @@ const getSingleServices = async (id) => {
   await new Promise((resolve) => 
             setTimeout(() => {
                 resolve()
-            }), 2000
+            }), 1000
         )
   const data = await res.json();
   return data?.data || null;

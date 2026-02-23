@@ -21,8 +21,14 @@ const DashboardSidebar = () => {
                 
                 <div className='flex gap-2 items-center hover:bg-purple-400 p-2'>
                     <CiMoneyBill />
+                    <Link href={'/dashboard/my-bookings'} className=''>My Bookings</Link>
+                </div>
+                
+                <div className='flex gap-2 items-center hover:bg-purple-400 p-2'>
+                    <CiMoneyBill />
                     <Link href={'/payments'} className=''>Payments</Link>
                 </div>
+
 
 
              

@@ -21,5 +21,6 @@ export default function Dashboard() {
       <h2>Welcome {user.displayName}</h2>
       <button onClick={logout}>Logout</button>
     </div>
-  );
+    )
+  ;
 }
