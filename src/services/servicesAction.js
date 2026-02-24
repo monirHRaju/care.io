@@ -4,7 +4,7 @@ export const getAllServices = async (searchParams) => {
   console.log('Fetching with params:', params);
 
   const res = await fetch(
-    `https://car-washing-system-cleanify-server.vercel.app/api/v1/services?${params}`,
+    `http://localhost:3000/api/services?${params}`,
     { cache: 'no-store' }
   );
 
@@ -18,7 +18,7 @@ export const getAllServices = async (searchParams) => {
 };
 
 export const getSingleServices = async (id) => {
-  const res = await fetch(`https://car-washing-system-cleanify-server.vercel.app/api/v1/services/${id}`, {
+  const res = await fetch(`http://localhost:3000/api/services/${id}`, {
     cache: "no-store", // or use revalidate if needed
   });
   await new Promise((resolve) => 

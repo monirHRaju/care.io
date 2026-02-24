@@ -105,7 +105,7 @@ export default function Navbar() {
                 href={'/login'}
                 className="bg-[#FF7A59] text-white px-4 py-2 rounded-full text-sm font-medium hover:opacity-90 transition"
               >
-                Login / Register
+                Login
               </Link>
             )}
           </div>
