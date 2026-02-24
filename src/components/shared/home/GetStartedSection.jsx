@@ -24,7 +24,7 @@ export default function GetStartedSection() {
 
         {/* CTA Button */}
         <Link
-          href="/signup" // or "/get-started" / "/register" – change as needed
+          href="/register" // or "/get-started" / "/register" – change as needed
           className="
             inline-block 
             bg-white text-[#FF7A59] 

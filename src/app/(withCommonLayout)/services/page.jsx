@@ -2,24 +2,25 @@
 import Container from '@/components/shared/Container';
 import ServiceCard from './_components/ServiceCard';
 import Filters from './_components/Filters'; // new client component
+import { getAllServices } from '@/services/servicesAction';
 
-const getAllServices = async (searchParams) => {
-  const params = new URLSearchParams(searchParams).toString();
-  console.log('Fetching with params:', params);
+// const getAllServices = async (searchParams) => {
+//   const params = new URLSearchParams(searchParams).toString();
+//   console.log('Fetching with params:', params);
 
-  const res = await fetch(
-    `https://car-washing-system-cleanify-server.vercel.app/api/v1/services?${params}`,
-    { cache: 'no-store' }
-  );
+//   const res = await fetch(
+//     `https://car-washing-system-cleanify-server.vercel.app/api/v1/services?${params}`,
+//     { cache: 'no-store' }
+//   );
 
-  if (!res.ok) {
-    console.error('Fetch error:', res.status);
-    return { data: [], meta: { total: 0 } };
-  }
+//   if (!res.ok) {
+//     console.error('Fetch error:', res.status);
+//     return { data: [], meta: { total: 0 } };
+//   }
 
-  const data = await res.json();
-  return data;
-};
+//   const data = await res.json();
+//   return data;
+// };
 export const metadata = {
     title: "Services",
     description: "Explore our wide range of car washing services, tailored to meet all your vehicle care needs. From basic washes to premium detailing, find the perfect service for your car today!",

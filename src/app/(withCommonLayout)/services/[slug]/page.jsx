@@ -4,19 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaCheckCircle, FaMoneyBillWave, FaArrowRight } from "react-icons/fa";
 import BookingBtn from "../_components/BookingBtn";
+import { getSingleServices } from "@/services/servicesAction";
 
-const getSingleServices = async (id) => {
-  const res = await fetch(`https://car-washing-system-cleanify-server.vercel.app/api/v1/services/${id}`, {
-    cache: "no-store", // or use revalidate if needed
-  });
-  await new Promise((resolve) => 
-            setTimeout(() => {
-                resolve()
-            }), 1000
-        )
-  const data = await res.json();
-  return data?.data || null;
-};
+// const getSingleServices = async (id) => {
+//   const res = await fetch(`https://car-washing-system-cleanify-server.vercel.app/api/v1/services/${id}`, {
+//     cache: "no-store", // or use revalidate if needed
+//   });
+//   await new Promise((resolve) => 
+//             setTimeout(() => {
+//                 resolve()
+//             }), 1000
+//         )
+//   const data = await res.json();
+//   return data?.data || null;
+// };
 
 const ServiceDetails = async ({ params }) => {
   const { slug } = await params;

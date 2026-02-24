@@ -1,11 +1,19 @@
 // app/api/services/route.js
-import connectMongoDB from '@/lib/mongodb';
-import Service from '@/models/Service';
+// import connectMongoDB from '@/lib/mongodb';
+// import Service from '@/models/Service';
+
+import { dbConnect } from "@/lib/dbConnect";
+
 
 export async function GET() {
-  await connectMongoDB();
-  const services = await Service.find({});
-  return Response.json({ services });
+  // await connectMongoDB();
+  const servicesRes = await dbConnect("services");
+  const services = await servicesRes.find({}).toArray();
+
+  return Response.json({
+    message: "Services fetched successfully",
+    services
+   });
 }
 
 export async function POST(request) {
