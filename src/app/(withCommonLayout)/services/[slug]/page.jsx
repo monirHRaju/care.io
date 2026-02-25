@@ -1,218 +1,228 @@
-// app/services/[slug]/page.jsx   (or wherever your dynamic route is)
-import Container from "@/components/shared/Container";
-import Image from "next/image";
+// app/services/[slug]/page.jsx
 import Link from "next/link";
-import { FaClock, FaCheckCircle, FaMoneyBillWave, FaArrowRight } from "react-icons/fa";
-import BookingBtn from "../_components/BookingBtn";
-import { getSingleServices } from "@/services/servicesAction";
+import { ArrowLeft, Clock, DollarSign, CheckCircle, Calendar } from "lucide-react";
+import { notFound } from "next/navigation";
 
-// const getSingleServices = async (id) => {
-//   const res = await fetch(`https://car-washing-system-cleanify-server.vercel.app/api/v1/services/${id}`, {
-//     cache: "no-store", // or use revalidate if needed
-//   });
-//   await new Promise((resolve) => 
-//             setTimeout(() => {
-//                 resolve()
-//             }), 1000
-//         )
-//   const data = await res.json();
-//   return data?.data || null;
-// };
+// This would normally come from your API / database
+async function getService(slug) {
+  if (!slug) return null;
 
-const ServiceDetails = async ({ params }) => {
-  const { slug } = await params;
-  console.log(slug)
-  const service = await getSingleServices(slug);
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/services?slug=${encodeURIComponent(slug)}`,
+      { cache: "no-store" }
+    );
+
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    return data.service || null;
+  } catch (err) {
+    console.error("Failed to fetch service:", err);
+    return null;
+  }
+}
+// For demo: hard-coded fallback + dynamic slug matching
+// const mockServices = [
+//   {
+//     slug: "baby-care",
+//     name: "Baby Care",
+//     description: "Experienced nannies and babysitters providing full-day, part-time or night care for infants and young children with love, safety and attention to developmental needs.",
+//     shortDescription: "Loving and professional care for your little ones",
+//     hourlyRate: 650,
+//     dailyRate: 5200,
+//     icon: "👶",
+//     category: "childcare",
+//     features: [
+//       "Age-appropriate activities & playtime",
+//       "Feeding, diapering & hygiene support",
+//       "Safe sleep routines & nap supervision",
+//       "Emergency first-aid & CPR trained",
+//       "Daily updates & photos for parents"
+//     ],
+//     available: true,
+//     note: "We match caregivers based on your child's age and specific needs",
+//   },
+//   {
+//     slug: "elderly-service",
+//     name: "Elderly Service",
+//     description: "Compassionate companionship and assistance for seniors — including help with daily activities, medication reminders, light housekeeping, mobility support and emotional care.",
+//     shortDescription: "Dignified support for independent living",
+//     hourlyRate: 550,
+//     dailyRate: 4400,
+//     nightShiftRate: 750,
+//     icon: "❤️",
+//     category: "eldercare",
+//     features: [
+//       "Medication reminders & management",
+//       "Meal preparation & feeding assistance",
+//       "Mobility & transfer support",
+//       "Companionship & conversation",
+//       "Light housekeeping & errands",
+//       "24/7 emergency response coordination"
+//     ],
+//     available: true,
+//   },
+//   // Add more services here or fetch from /api/services
+// ];
+
+
+
+export default async function ServicePage({ params: paramsPromise }) {
+  const params = await paramsPromise;
+  const { slug } = params;
+  
+  const service = await getService(slug);
+
+  if (!service) {
+    notFound(); // triggers Next.js built-in 404 page
+  }
+  // Find the service by slug (in real app → fetch from API)
+  // const service = mockServices.find((s) => s.slug === slug);
 
   if (!service) {
     return (
-      <div className="py-20 text-center">
-        <Container>
-          <h1 className="text-4xl font-bold mb-4">Service Not Found</h1>
-          <p className="text-lg text-base-content/70 mb-8">
-            The requested service could not be found or has been removed.
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center p-8">
+          <h1 className="text-4xl font-bold text-gray-800 mb-4">Service Not Found</h1>
+          <p className="text-xl text-gray-600 mb-8">
+            The service you're looking for doesn't exist or has been removed.
           </p>
-          <Link href="/services" className="btn btn-primary">
-            Back to Services
+          <Link
+            href="/services"
+            className="inline-flex items-center px-6 py-3 bg-[#FF7A59] text-white rounded-full hover:bg-[#e66a4d] transition"
+          >
+            <ArrowLeft className="mr-2" size={20} />
+            Back to All Services
           </Link>
-        </Container>
+        </div>
       </div>
     );
   }
 
-  const plainDescription = service.description
-    .replace(/<[^>]+>/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  const keyFeatures = [
-    "High-quality wax application for a deep, glossy shine",
-    "Machine polishing to remove scratches and marks",
-    "Long-lasting paint protection",
-    "Smooth, mirror-like finish",
-    "Ideal for restoring older or faded paintwork",
-  ];
-
   return (
-    <div className="min-h-screen bg-base-200/30 py-10 md:py-16">
-      <Container>
-        {/* Breadcrumb */}
-        <div className="text-sm breadcrumbs mb-6">
-          <ul>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/services">Services</Link></li>
-            <li>{service.name}</li>
-          </ul>
-        </div>
+    <div className="min-h-screen bg-gray-50 pb-16">
+      {/* Hero / Header */}
+      <section className="bg-gradient-to-br from-[#FF7A59]/10 to-white py-16 md:py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <Link
+            href="/"
+            className="inline-flex items-center text-[#4A90E2] hover:text-[#3a7bc8] mb-6"
+          >
+            <ArrowLeft size={20} className="mr-2" />
+            Back to Home
+          </Link>
 
-        {/* Hero Section */}
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-16">
-          <div className="space-y-6">
-            {service.isFeatured && (
-              <div className="badge badge-primary badge-lg gap-2 px-5 py-3 text-base font-semibold">
-                <FaCheckCircle /> Featured Service
-              </div>
-            )}
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              {service.name}
-            </h1>
-
-            <div className="flex flex-wrap gap-6 text-lg">
-              <div className="flex items-center gap-3 badge badge-outline badge-lg py-4 px-6">
-                <FaClock className="text-primary" />
-                {service.duration} Minutes
-              </div>
-              <div className="flex items-center gap-3 badge badge-outline badge-lg py-4 px-6 font-bold text-xl text-primary">
-                <FaMoneyBillWave />
-                ৳{service.price.toLocaleString()}
-              </div>
+          <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-[#34C759]/10 flex items-center justify-center text-6xl md:text-8xl flex-shrink-0">
+              {service.icon}
             </div>
-
-            <div className="pt-4">
-              <BookingBtn service={service}/>
-            </div>
-          </div>
-
-          {/* Main Image */}
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
-            <Image
-              src={service.img}
-              alt={service.name}
-              width={800}
-              height={600}
-              className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-              priority
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
-          </div>
-        </div>
-
-        {/* Content Section */}
-        <div className="grid lg:grid-cols-3 gap-10">
-          {/* Main Description & Features */}
-          <div className="lg:col-span-2 space-y-10">
-            <div className="prose prose-lg max-w-none">
-              <h2 className="text-3xl font-bold mb-6">Whats Included</h2>
-              <p className="text-base-content/80 leading-relaxed text-lg">
-                {plainDescription}
+            <div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#333333] mb-3">
+                {service.name}
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-700 max-w-3xl">
+                {service.shortDescription}
               </p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="bg-base-100 p-8 rounded-2xl shadow-lg border border-base-200">
-              <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                <span className="text-success text-3xl">✔</span> Key Features
-              </h3>
-              <ul className="space-y-4 text-lg">
-                {keyFeatures.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-4">
-                    <span className="text-success text-xl mt-1">•</span>
+      <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div className="grid lg:grid-cols-3 gap-10 lg:gap-12">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-12">
+            <section>
+              <h2 className="text-3xl font-bold text-[#333333] mb-6">About This Service</h2>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                {service.description}
+              </p>
+              {service.note && (
+                <p className="text-[#FF7A59] font-medium italic">
+                  Note: {service.note}
+                </p>
+              )}
+            </section>
+
+            <section>
+              <h2 className="text-3xl font-bold text-[#333333] mb-6">What's Included</h2>
+              <ul className="grid md:grid-cols-2 gap-4">
+                {service.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-lg">
+                    <CheckCircle className="text-[#34C759] mt-1 flex-shrink-0" size={24} />
                     <span>{feature}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
           </div>
 
-          {/* Sidebar / Quick Info */}
-          <div className="space-y-8">
-            <div className="card bg-base-100 shadow-xl border border-primary/20">
-              <div className="card-body">
-                <h3 className="card-title text-2xl">Service Summary</h3>
-                <div className="divider my-4"></div>
-                <div className="space-y-4 text-base-content/80">
-                  <div className="flex justify-between">
-                    <span>Duration</span>
-                    <span className="font-semibold">{service.duration} min</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Price</span>
-                    <span className="font-bold text-primary text-xl">
-                      ৳{service.price.toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Status</span>
-                    <span className="badge badge-success gap-2">
-                      Available
-                    </span>
-                  </div>
-                </div>
-                <div className="card-actions mt-8">
-                  <BookingBtn service={service} />
-                </div>
-              </div>
-            </div>
+          {/* Sidebar - Pricing & CTA */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 lg:sticky lg:top-8">
+              <h3 className="text-2xl font-bold text-[#333333] mb-6">Pricing</h3>
 
-            {/* Visual Gallery / Inspiration */}
-            <div className="card bg-base-100 shadow-xl border border-base-200">
-              <div className="card-body">
-                <h3 className="card-title text-xl">See the Results</h3>
-                <div className="grid grid-cols-2 gap-4 mt-4">
-                  <div className="aspect-square rounded-xl overflow-hidden">
-                    <Image
-                      src="https://images.pexels.com/photos/5233259/pexels-photo-5233259.jpeg"
-                      alt="Polished car shine"
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover"
-                    />
+              <div className="space-y-6 mb-10">
+                {service.hourlyRate && (
+                  <div className="flex items-baseline gap-3">
+                    <DollarSign className="text-[#FF7A59]" size={28} />
+                    <div>
+                      <span className="text-4xl font-bold text-[#FF7A59]">
+                        ৳{service.hourlyRate}
+                      </span>
+                      <span className="text-gray-500"> / hour</span>
+                    </div>
                   </div>
-                  <div className="aspect-square rounded-xl overflow-hidden">
-                    <Image
-                      src="https://www.totalpackagedetailing.com/wp-content/uploads/2025/10/Restoring-an-older-vehicle.png"
-                      alt="Before after polish"
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover"
-                    />
+                )}
+
+                {service.dailyRate && (
+                  <div className="flex items-baseline gap-3">
+                    <Calendar className="text-[#34C759]" size={28} />
+                    <div>
+                      <span className="text-4xl font-bold text-[#34C759]">
+                        ৳{service.dailyRate}
+                      </span>
+                      <span className="text-gray-500"> / day</span>
+                    </div>
                   </div>
-                  <div className="aspect-square rounded-xl overflow-hidden">
-                    <Image
-                      src="https://lakelandceramiccoating.com/wp-content/uploads/2025/10/on-step-process.png"
-                      alt="Machine polishing"
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover"
-                    />
+                )}
+
+                {service.nightShiftRate && (
+                  <div className="flex items-baseline gap-3">
+                    <Clock className="text-[#4A90E2]" size={28} />
+                    <div>
+                      <span className="text-3xl font-bold text-[#4A90E2]">
+                        ৳{service.nightShiftRate}
+                      </span>
+                      <span className="text-gray-500"> / night shift</span>
+                    </div>
                   </div>
-                  <div className="aspect-square rounded-xl overflow-hidden">
-                    <Image
-                      src="https://www.totalpackagedetailing.com/wp-content/uploads/2025/09/flawless-paint-correction-1024x578.png"
-                      alt="Flawless shine result"
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
+                )}
               </div>
+
+              <Link
+                href={`/booking?service=${encodeURIComponent(service.name)}`}
+                className="
+                  block w-full 
+                  bg-[#FF7A59] hover:bg-[#e66a4d] 
+                  text-white font-bold text-xl text-center 
+                  py-5 rounded-full 
+                  transition transform hover:scale-[1.02] 
+                  shadow-xl hover:shadow-2xl
+                  focus:outline-none focus:ring-4 focus:ring-[#FF7A59]/40
+                "
+              >
+                Book This Service Now
+              </Link>
+
+              <p className="text-center text-sm text-gray-500 mt-6">
+                Flexible scheduling • Verified caregivers • Secure payments
+              </p>
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
-};
-
-export default ServiceDetails;
+}
