@@ -49,7 +49,7 @@ export default function ServiceCard({ service }) {
       </div>
 
       {/* Main Content */}
-      <div className="p-6 lg:p-8 flex flex-col flex-grow">
+      <div className="p-6 lg:p-8 flex flex-col grow">
         {/* Pricing */}
         <div className="flex items-baseline gap-3 mb-6">
           {hourlyRate && (

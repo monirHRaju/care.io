@@ -5,20 +5,27 @@
 import { dbConnect } from "@/lib/dbConnect";
 
 
-export async function GET() {
+export async function GET(request) {
   // await connectMongoDB();
   const servicesRes = await dbConnect("services");
   const services = await servicesRes.find({}).toArray();
 
   return Response.json({
-    message: "Services fetched successfully",
-    services
+    services,
+    message: "Services retrieved successfully",
    });
 }
 
 export async function POST(request) {
-  await connectMongoDB();
-  const data = await request.json();
-  const newService = await Service.create(data);
-  return Response.json({ message: 'Service created', service: newService }, { status: 201 });
+  
+  const newService = await request.json();
+  const serviceRes = await dbConnect("services")
+  const res = await serviceRes.insertOne(newService)
+  return Response.json(
+  { 
+    message: 'Service created', 
+    service: res, 
+  }, 
+  { status: 201 }
+);
 }

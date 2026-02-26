@@ -14,11 +14,11 @@ export const getAllServices = async (searchParams) => {
   }
 
   const data = await res.json();
-  return data;
+  return data.services;
 };
 
-export const getSingleServices = async (id) => {
-  const res = await fetch(`http://localhost:3000/api/services/${id}`, {
+export const getSingleService = async (id) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/services/${id}`, {
     cache: "no-store", // or use revalidate if needed
   });
   await new Promise((resolve) => 
@@ -27,5 +27,5 @@ export const getSingleServices = async (id) => {
             }), 1000
         )
   const data = await res.json();
-  return data?.data || null;
+  return data?.service || null;
 }

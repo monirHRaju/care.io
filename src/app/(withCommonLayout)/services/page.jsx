@@ -4,60 +4,62 @@
 import { useState, useEffect, useMemo } from "react";
 import { Search, Filter, X, SlidersHorizontal } from "lucide-react";
 import ServiceCard from "./_components/ServiceCard";
+import { getAllServices } from "@/services/servicesAction";
 
 // Mock data (replace with real fetch from /api/services)
-const mockServices = [
-  {
-    name: "Baby Care",
-    shortDescription: "Loving and professional care for your little ones",
-    description: "Experienced nannies and babysitters providing full-day, part-time or night care...",
-    hourlyRate: 650,
-    dailyRate: 5200,
-    icon: "👶",
-    category: "childcare",
-    features: ["Age-appropriate activities", "Feeding & hygiene support", "..."],
-    available: true,
-  },
-  {
-    name: "Elderly Service",
-    shortDescription: "Dignified support for independent living",
-    description: "Compassionate companionship and assistance for seniors...",
-    hourlyRate: 550,
-    dailyRate: 4400,
-    nightShiftRate: 750,
-    icon: "❤️",
-    category: "eldercare",
-    features: ["Medication management", "Meal preparation", "..."],
-    available: true,
-  },
-  {
-    name: "Sick People Service",
-    shortDescription: "Reliable medical & recovery support",
-    description: "Professional caregiving for individuals recovering from surgery...",
-    hourlyRate: 850,
-    dailyRate: 6800,
-    nightShiftRate: 1100,
-    icon: "🩺",
-    category: "medicalcare",
-    features: ["Vital signs monitoring", "Medication administration", "..."],
-    available: true,
-  },
-  {
-    name: "Special Needs Care",
-    shortDescription: "Inclusive and patient-centered care",
-    description: "Dedicated support for children and adults with disabilities...",
-    hourlyRate: 950,
-    dailyRate: 7600,
-    icon: "♿",
-    category: "specialcare",
-    features: ["Individualized care plans", "Behavioral support", "..."],
-    available: false,
-  },
-  // ... add more as needed
-];
+// const mockServices = getAllServices()
+// const mockServices = [
+//   {
+//     name: "Baby Care",
+//     shortDescription: "Loving and professional care for your little ones",
+//     description: "Experienced nannies and babysitters providing full-day, part-time or night care...",
+//     hourlyRate: 650,
+//     dailyRate: 5200,
+//     icon: "👶",
+//     category: "childcare",
+//     features: ["Age-appropriate activities", "Feeding & hygiene support", "..."],
+//     available: true,
+//   },
+//   {
+//     name: "Elderly Service",
+//     shortDescription: "Dignified support for independent living",
+//     description: "Compassionate companionship and assistance for seniors...",
+//     hourlyRate: 550,
+//     dailyRate: 4400,
+//     nightShiftRate: 750,
+//     icon: "❤️",
+//     category: "eldercare",
+//     features: ["Medication management", "Meal preparation", "..."],
+//     available: true,
+//   },
+//   {
+//     name: "Sick People Service",
+//     shortDescription: "Reliable medical & recovery support",
+//     description: "Professional caregiving for individuals recovering from surgery...",
+//     hourlyRate: 850,
+//     dailyRate: 6800,
+//     nightShiftRate: 1100,
+//     icon: "🩺",
+//     category: "medicalcare",
+//     features: ["Vital signs monitoring", "Medication administration", "..."],
+//     available: true,
+//   },
+//   {
+//     name: "Special Needs Care",
+//     shortDescription: "Inclusive and patient-centered care",
+//     description: "Dedicated support for children and adults with disabilities...",
+//     hourlyRate: 950,
+//     dailyRate: 7600,
+//     icon: "♿",
+//     category: "specialcare",
+//     features: ["Individualized care plans", "Behavioral support", "..."],
+//     available: false,
+//   },
+//   // ... add more as needed
+// ];
 
 export default function ServicesPage() {
-  const [services, setServices] = useState(mockServices); // replace with real fetch later
+  const [services, setServices] = useState([]); // replace with real fetch later
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceRange, setPriceRange] = useState("all");
@@ -65,39 +67,39 @@ export default function ServicesPage() {
   const [showFilters, setShowFilters] = useState(false);
 
   // Extract unique categories for filter dropdown
-  const categories = useMemo(() => {
-    const cats = new Set(mockServices.map((s) => s.category));
-    return ["all", ...Array.from(cats)];
-  }, []);
+  // const categories = useMemo(() => {
+  //   const cats = new Set(mockServices.map((s) => s.category));
+  //   return ["all", ...Array.from(cats)];
+  // }, []);
 
   // Filtered services
-  const filteredServices = useMemo(() => {
-    return mockServices.filter((service) => {
-      const matchesSearch =
-        searchTerm === "" ||
-        service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        service.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        service.shortDescription.toLowerCase().includes(searchTerm.toLowerCase());
+  // const filteredServices = useMemo(() => {
+  //   return mockServices.filter((service) => {
+  //     const matchesSearch =
+  //       searchTerm === "" ||
+  //       service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       service.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       service.shortDescription.toLowerCase().includes(searchTerm.toLowerCase());
 
-      const matchesCategory =
-        selectedCategory === "all" || service.category === selectedCategory;
+  //     const matchesCategory =
+  //       selectedCategory === "all" || service.category === selectedCategory;
 
-      const matchesAvailability =
-        availability === "all" ||
-        (availability === "available" && service.available) ||
-        (availability === "unavailable" && !service.available);
+  //     const matchesAvailability =
+  //       availability === "all" ||
+  //       (availability === "available" && service.available) ||
+  //       (availability === "unavailable" && !service.available);
 
-      let matchesPrice = true;
-      if (priceRange !== "all") {
-        const maxPrice = service.hourlyRate || service.dailyRate / 8 || 0;
-        if (priceRange === "low") matchesPrice = maxPrice <= 600;
-        if (priceRange === "medium") matchesPrice = maxPrice > 600 && maxPrice <= 800;
-        if (priceRange === "high") matchesPrice = maxPrice > 800;
-      }
+  //     let matchesPrice = true;
+  //     if (priceRange !== "all") {
+  //       const maxPrice = service.hourlyRate || service.dailyRate / 8 || 0;
+  //       if (priceRange === "low") matchesPrice = maxPrice <= 600;
+  //       if (priceRange === "medium") matchesPrice = maxPrice > 600 && maxPrice <= 800;
+  //       if (priceRange === "high") matchesPrice = maxPrice > 800;
+  //     }
 
-      return matchesSearch && matchesCategory && matchesAvailability && matchesPrice;
-    });
-  }, [searchTerm, selectedCategory, priceRange, availability]);
+  //     return matchesSearch && matchesCategory && matchesAvailability && matchesPrice;
+  //   });
+  // }, [searchTerm, selectedCategory, priceRange, availability]);
 
   // Reset filters
   const resetFilters = () => {
@@ -108,13 +110,14 @@ export default function ServicesPage() {
   };
 
   // Optional: real fetch (uncomment when API is ready)
-  // useEffect(() => {
-  //   fetch("/api/services")
-  //     .then(res => res.json())
-  //     .then(data => setServices(data.services))
-  //     .catch(err => console.error("Failed to load services", err));
-  // }, []);
+  useEffect(() => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/services`)
+      .then(res => res.json())
+      .then(data => setServices(data.services))
+      .catch(err => console.error("Failed to load services", err));
+  }, []);
 
+  console.log(services)
   return (
     <div className="min-h-screen bg-gray-50 pb-16">
       {/* Header */}
@@ -160,7 +163,7 @@ export default function ServicesPage() {
             </button>
 
             {/* Desktop Filters */}
-            <div className="hidden md:flex items-center gap-4">
+            {/* <div className="hidden md:flex items-center gap-4">
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -202,7 +205,7 @@ export default function ServicesPage() {
                   <X size={16} /> Clear
                 </button>
               )}
-            </div>
+            </div> */}
           </div>
 
           {/* Mobile Filters Panel */}
@@ -263,7 +266,7 @@ export default function ServicesPage() {
 
       {/* Services Grid */}
       <div className="mx-auto max-w-6xl px-6 py-12">
-        {filteredServices.length === 0 ? (
+        {services.length === 0 ? (
           <div className="text-center py-20">
             <h3 className="text-2xl font-bold text-gray-700 mb-4">No services found</h3>
             <p className="text-gray-600 mb-8">
@@ -278,7 +281,7 @@ export default function ServicesPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredServices.map((service) => (
+            {services.map((service) => (
               <ServiceCard key={service.name} service={service} />
             ))}
           </div>
