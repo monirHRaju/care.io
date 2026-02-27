@@ -58,20 +58,36 @@ export default async function ServicesPage() {
 const servicesData = await getAllServices()
 const services = servicesData.services || [] 
 
-  console.log(services)
   return (
-    <div className="min-h-screen bg-gray-50 pb-16">
+    <div className="min-h-screen pb-16">
       {/* Header */}
-      <section className="bg-gradient-to-br from-[#FF7A59]/10 to-white py-12 md:py-16">
-        <div className="mx-auto max-w-6xl px-6 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#333333] mb-4">
-            Our Care Services
-          </h1>
-          <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
-            Trusted, compassionate, and professional care for every member of your family
-          </p>
-        </div>
-      </section>
+      <section className="
+  bg-gradient-to-br 
+  from-gray-50 via-white to-gray-100 
+  dark:from-gray-900 dark:via-gray-950 dark:to-black 
+  py-12 md:py-16 
+  border-b border-gray-200 dark:border-gray-800
+">
+  <div className="mx-auto max-w-6xl px-6 text-center">
+    <h1 className="
+      text-4xl md:text-5xl lg:text-6xl 
+      font-bold 
+      text-gray-900 dark:text-white 
+      mb-4 
+      tracking-tight
+    ">
+      Our Care Services
+    </h1>
+    <p className="
+      text-lg md:text-xl 
+      text-gray-600 dark:text-gray-300 
+      max-w-3xl mx-auto 
+      font-light
+    ">
+      Trusted, compassionate, and professional care for every member of your family
+    </p>
+  </div>
+</section>
 
       
       {/* Services Grid */}

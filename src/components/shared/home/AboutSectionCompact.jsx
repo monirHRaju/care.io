@@ -29,7 +29,7 @@ export default function AboutSection() {
             {/* Card 1 - Verified Caregivers */}
             <div 
               className="
-                bg-gray-50 rounded-2xl p-6 lg:p-8 
+                border rounded-2xl p-6 lg:p-8 
                 shadow-sm hover:shadow-md transition-all duration-300
                 flex items-center gap-6 lg:gap-8
                 min-h-[120px] lg:min-h-[140px]
@@ -39,10 +39,10 @@ export default function AboutSection() {
                 <span className="text-[#FF7A59]">✓</span>
               </div>
               <div className="flex-1">
-                <h3 className="text-xl lg:text-2xl font-semibold text-[#333333] mb-1 lg:mb-2">
+                <h3 className="text-xl lg:text-2xl font-semibold mb-1 lg:mb-2">
                   Verified Caregivers
                 </h3>
-                <p className="text-base lg:text-lg text-gray-600">
+                <p className="text-base lg:text-lg text-gray-500">
                   Background-checked professionals
                 </p>
               </div>
@@ -51,7 +51,7 @@ export default function AboutSection() {
             {/* Card 2 - Top Rated */}
             <div 
               className="
-                bg-gray-50 rounded-2xl p-6 lg:p-8 
+                border rounded-2xl p-6 lg:p-8 
                 shadow-sm hover:shadow-md transition-all duration-300
                 flex items-center gap-6 lg:gap-8
                 min-h-[120px] lg:min-h-[140px]
@@ -61,10 +61,10 @@ export default function AboutSection() {
                 <span className="text-[#34C759]">★</span>
               </div>
               <div className="flex-1">
-                <h3 className="text-xl lg:text-2xl font-semibold text-[#333333] mb-1 lg:mb-2">
+                <h3 className="text-xl lg:text-2xl font-semibold mb-1 lg:mb-2">
                   Top Rated
                 </h3>
-                <p className="text-base lg:text-lg text-gray-600">
+                <p className="text-base lg:text-lg text-gray-500">
                   4.8+ average rating
                 </p>
               </div>
@@ -73,7 +73,7 @@ export default function AboutSection() {
             {/* Card 3 - 24/7 Support */}
             <div 
               className="
-                bg-gray-50 rounded-2xl p-6 lg:p-8 
+                border rounded-2xl p-6 lg:p-8 
                 shadow-sm hover:shadow-md transition-all duration-300
                 flex items-center gap-6 lg:gap-8
                 min-h-[120px] lg:min-h-[140px]
@@ -83,10 +83,10 @@ export default function AboutSection() {
                 <span className="text-[#4A90E2]">24/7</span>
               </div>
               <div className="flex-1">
-                <h3 className="text-xl lg:text-2xl font-semibold text-[#333333] mb-1 lg:mb-2">
+                <h3 className="text-xl lg:text-2xl font-semibold mb-1 lg:mb-2">
                   24/7 Support
                 </h3>
-                <p className="text-base lg:text-lg text-gray-600">
+                <p className="text-base lg:text-lg text-gray-500">
                   Always here to help
                 </p>
               </div>

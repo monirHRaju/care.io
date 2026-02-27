@@ -12,24 +12,27 @@ import "swiper/css/navigation";
 
 // Optional: if you want fade effect instead of slide
 // import "swiper/css/effect-fade";
+// 
+// 
+// 
 
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80", // warm family/care image
+    image: "https://i.ibb.co.com/3yRhDnPz/pexels-photo-3791664.jpg", // warm family/care image
     heading: "Trusted Care for Your Little Ones",
     subheading: "Professional babysitters you can count on — any time, any place.",
     buttonText: "Book Baby Care Now",
     buttonLink: "/services/baby-care",
   },
   {
-    image: "https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80", // elderly care warm scene
+    image: "https://i.ibb.co.com/PGFbcdYs/pexels-photo-7446993.jpg", // elderly care warm scene
     heading: "Compassionate Support for Your Loved Ones",
     subheading: "Experienced caregivers dedicated to elderly comfort and safety.",
     buttonText: "Explore Elderly Services",
     buttonLink: "/services/elderly-service",
   },
   {
-    image: "https://images.unsplash.com/photo-1576092768241-dec2310aa9f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2340&q=80", // caring for sick person
+    image: "https://i.ibb.co.com/qYsq2Zk2/pexels-photo-6129242.jpg", // caring for sick person
     heading: "Reliable Help When It Matters Most",
     subheading: "Skilled care for those recovering or needing extra support.",
     buttonText: "Find Sick Care Services",

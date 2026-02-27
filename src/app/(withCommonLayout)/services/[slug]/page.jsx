@@ -9,7 +9,7 @@ async function getService(slug) {
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/services?slug=${encodeURIComponent(slug)}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/api/services/${encodeURIComponent(slug)}`,
       { cache: "no-store" }
     );
 
@@ -22,50 +22,6 @@ async function getService(slug) {
     return null;
   }
 }
-// For demo: hard-coded fallback + dynamic slug matching
-// const mockServices = [
-//   {
-//     slug: "baby-care",
-//     name: "Baby Care",
-//     description: "Experienced nannies and babysitters providing full-day, part-time or night care for infants and young children with love, safety and attention to developmental needs.",
-//     shortDescription: "Loving and professional care for your little ones",
-//     hourlyRate: 650,
-//     dailyRate: 5200,
-//     icon: "👶",
-//     category: "childcare",
-//     features: [
-//       "Age-appropriate activities & playtime",
-//       "Feeding, diapering & hygiene support",
-//       "Safe sleep routines & nap supervision",
-//       "Emergency first-aid & CPR trained",
-//       "Daily updates & photos for parents"
-//     ],
-//     available: true,
-//     note: "We match caregivers based on your child's age and specific needs",
-//   },
-//   {
-//     slug: "elderly-service",
-//     name: "Elderly Service",
-//     description: "Compassionate companionship and assistance for seniors — including help with daily activities, medication reminders, light housekeeping, mobility support and emotional care.",
-//     shortDescription: "Dignified support for independent living",
-//     hourlyRate: 550,
-//     dailyRate: 4400,
-//     nightShiftRate: 750,
-//     icon: "❤️",
-//     category: "eldercare",
-//     features: [
-//       "Medication reminders & management",
-//       "Meal preparation & feeding assistance",
-//       "Mobility & transfer support",
-//       "Companionship & conversation",
-//       "Light housekeeping & errands",
-//       "24/7 emergency response coordination"
-//     ],
-//     available: true,
-//   },
-//   // Add more services here or fetch from /api/services
-// ];
-
 
 
 export default async function ServicePage({ params: paramsPromise }) {
@@ -73,16 +29,16 @@ export default async function ServicePage({ params: paramsPromise }) {
   const { slug } = params;
   
   const service = await getService(slug);
+  
+  console.log(service)
 
   if (!service) {
     notFound(); // triggers Next.js built-in 404 page
   }
-  // Find the service by slug (in real app → fetch from API)
-  // const service = mockServices.find((s) => s.slug === slug);
 
   if (!service) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-800  dark:bg-gray-800">
         <div className="text-center p-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Service Not Found</h1>
           <p className="text-xl text-gray-600 mb-8">
@@ -101,16 +57,16 @@ export default async function ServicePage({ params: paramsPromise }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-16">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800  pb-16">
       {/* Hero / Header */}
-      <section className="bg-gradient-to-br from-[#FF7A59]/10 to-white py-16 md:py-24">
+      <section className="bg-linear-to-br from-[#FF7A59]/10 to-gray-50 dark:to-gray-800 py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <Link
-            href="/"
+            href="/services"
             className="inline-flex items-center text-[#4A90E2] hover:text-[#3a7bc8] mb-6"
           >
             <ArrowLeft size={20} className="mr-2" />
-            Back to Home
+            Back to Services
           </Link>
 
           <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
@@ -118,10 +74,10 @@ export default async function ServicePage({ params: paramsPromise }) {
               {service.icon}
             </div>
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#333333] mb-3">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">
                 {service.name}
               </h1>
-              <p className="text-xl md:text-2xl text-gray-700 max-w-3xl">
+              <p className="text-xl md:text-2xl text-gray-400 max-w-3xl">
                 {service.shortDescription}
               </p>
             </div>
@@ -134,8 +90,8 @@ export default async function ServicePage({ params: paramsPromise }) {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-12">
             <section>
-              <h2 className="text-3xl font-bold text-[#333333] mb-6">About This Service</h2>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+              <h2 className="text-3xl font-bold mb-6">About This Service</h2>
+              <p className="text-lg text-gray-500 leading-relaxed mb-6">
                 {service.description}
               </p>
               {service.note && (
@@ -146,7 +102,7 @@ export default async function ServicePage({ params: paramsPromise }) {
             </section>
 
             <section>
-              <h2 className="text-3xl font-bold text-[#333333] mb-6">What's Included</h2>
+              <h2 className="text-3xl font-bold  mb-6">What&apos;s Included</h2>
               <ul className="grid md:grid-cols-2 gap-4">
                 {service.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3 text-lg">
@@ -160,8 +116,8 @@ export default async function ServicePage({ params: paramsPromise }) {
 
           {/* Sidebar - Pricing & CTA */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 lg:sticky lg:top-8">
-              <h3 className="text-2xl font-bold text-[#333333] mb-6">Pricing</h3>
+            <div className="rounded-2xl shadow-lg border border-gray-100 p-8 lg:sticky lg:top-8">
+              <h3 className="text-2xl font-bold mb-6">Pricing</h3>
 
               <div className="space-y-6 mb-10">
                 {service.hourlyRate && (
@@ -188,17 +144,7 @@ export default async function ServicePage({ params: paramsPromise }) {
                   </div>
                 )}
 
-                {service.nightShiftRate && (
-                  <div className="flex items-baseline gap-3">
-                    <Clock className="text-[#4A90E2]" size={28} />
-                    <div>
-                      <span className="text-3xl font-bold text-[#4A90E2]">
-                        ৳{service.nightShiftRate}
-                      </span>
-                      <span className="text-gray-500"> / night shift</span>
-                    </div>
-                  </div>
-                )}
+          
               </div>
 
               <Link

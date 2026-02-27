@@ -15,8 +15,8 @@ export const createService = async (data) => {
     throw new Error("Failed to create service");
   }
 
-  //   revalidatePath("/reviews");
-  revalidateTag("services");
+    // revalidatePath("/services");
+//   revalidateTag("services");
 
   return res.json();
 };

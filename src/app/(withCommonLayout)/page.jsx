@@ -9,7 +9,7 @@ import GetStartedSection from "@/components/shared/home/GetStartedSection";
 
 export default function Home() {
   return (
-    <div className="py-7">
+    <div className="">
       <HeroSlider />
       <AvailableCaregivers />
       <AboutSectionCompact/>
